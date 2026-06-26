@@ -1,3 +1,4 @@
+console.log("KASIR JS VERSI BARU");
 const dashboard =
 document.getElementById("dashboard");
 
