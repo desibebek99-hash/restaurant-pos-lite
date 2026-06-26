@@ -82,13 +82,37 @@ saveOrders([
 
 id:1,
 
-table:5,
-
 customer:"Andi",
+
+table:5,
 
 status:"Menunggu Bayar",
 
-total:75000
+total:75000,
+
+items:[
+
+{
+
+name:"Nasi Goreng",
+
+qty:2,
+
+price:25000
+
+},
+
+{
+
+name:"Es Teh",
+
+qty:1,
+
+price:25000
+
+}
+
+]
 
 },
 
@@ -96,16 +120,28 @@ total:75000
 
 id:2,
 
-table:2,
-
 customer:"Budi",
+
+table:2,
 
 status:"Diproses",
 
-total:56000
+total:56000,
+
+items:[
+
+{
+
+name:"Mie Ayam",
+
+qty:2,
+
+price:28000
+
+}
+
+]
 
 }
 
 ]);
-
-}
