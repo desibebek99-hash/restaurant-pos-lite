@@ -38,6 +38,67 @@ body{
 
 }
 
+/* ===========================
+   DASHBOARD
+=========================== */
+
+.summary-grid{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+}
+
+.summary-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.summary-card:hover{
+
+    transform:translateY(-3px);
+
+}
+
+.summary-icon{
+
+    font-size:35px;
+
+}
+
+.summary-title{
+
+    margin-top:10px;
+
+    color:#777;
+
+}
+
+.summary-value{
+
+    margin-top:10px;
+
+    font-size:28px;
+
+    font-weight:bold;
+
+    color:#2196F3;
+
+}
 .card{
 
     background:white;
@@ -168,4 +229,110 @@ body{
 
     flex:1;
 
+}
+.search-box{
+
+    width:100%;
+
+    padding:14px;
+
+    border:1px solid #ddd;
+
+    border-radius:10px;
+
+    margin-bottom:20px;
+
+    font-size:16px;
+
+}
+
+.order-card{
+
+    background:white;
+
+    border-radius:15px;
+
+    padding:20px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 2px 8px rgba(0,0,0,.08);
+
+}
+
+.order-header{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+}
+
+.order-name{
+
+    font-size:20px;
+
+    font-weight:bold;
+
+}
+
+.order-total{
+
+    margin:15px 0;
+
+    font-size:26px;
+
+    color:#4CAF50;
+
+    font-weight:bold;
+
+}
+
+.badge{
+
+    display:inline-block;
+
+    padding:6px 12px;
+
+    border-radius:30px;
+
+    color:white;
+
+    font-size:13px;
+
+}
+
+.waiting{
+
+    background:#f44336;
+
+}
+
+.process{
+
+    background:#ff9800;
+
+}
+
+.done{
+
+    background:#4CAF50;
+
+}
+
+.button-group{
+
+    display:flex;
+
+    gap:10px;
+
+    margin-top:15px;
+
+}
+
+.button-group button{
+
+    flex:1;
 }
