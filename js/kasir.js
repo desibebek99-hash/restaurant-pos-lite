@@ -23,6 +23,53 @@ function renderDashboard(){
 
 <div class="summary-card">
 
+<div class="summary-icon">📦</div>
+
+<div class="summary-title">
+
+Order Hari Ini
+
+</div>
+
+<div class="summary-value">
+
+${totalOrder}
+
+</div>
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-icon">💰</div>
+
+<div class="summary-title">
+
+Omzet
+
+</div>
+
+<div class="summary-value">
+
+Rp${omzet.toLocaleString("id-ID")}
+
+</div>
+
+</div>
+
+</div>
+
+<input
+type="text"
+class="search-box"
+placeholder="🔍 Cari pelanggan...">
+
+`;
+
+<div class="summary-grid">
+
+<div class="summary-card">
+
 <div class="summary-title">
 
 Order Hari Ini
