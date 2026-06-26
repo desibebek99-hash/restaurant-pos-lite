@@ -5,215 +5,262 @@ renderDashboard();
 
 function renderDashboard(){
 
-    let orders = getOrders();
+    const orders = getOrders();
 
     let totalOrder = orders.length;
-
     let omzet = 0;
+    let diproses = 0;
+    let belumBayar = 0;
 
     orders.forEach(order=>{
 
         omzet += order.total;
 
+        if(order.status==="Diproses"){
+            diproses++;
+        }
+
+        if(order.status==="Menunggu Bayar"){
+            belumBayar++;
+        }
+
     });
 
     let html = `
 
-<div class="summary-grid">
+    <div class="summary-grid">
 
-<div class="order-card">
+        <div class="summary-card">
 
-<div class="order-header">
+            <div class="summary-icon">📦</div>
 
-<div class="order-name">
+            <div class="summary-title">
 
-${order.customer}
+                Order Hari Ini
 
-</div>
+            </div>
 
-<div>
+            <div class="summary-value">
 
-${order.table}
+                ${totalOrder}
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<br>
+        <div class="summary-card">
 
-<span class="badge waiting">
+            <div class="summary-icon">💰</div>
 
-${order.status}
+            <div class="summary-title">
 
-</span>
+                Omzet
 
-<div class="order-total">
+            </div>
 
-Rp${order.total.toLocaleString("id-ID")}
+            <div class="summary-value">
 
-</div>
+                Rp${omzet.toLocaleString("id-ID")}
 
-<div class="button-group">
+            </div>
 
-<button class="btn">
+        </div>
 
-✔ Bayar
+        <div class="summary-card">
 
-</button>
+            <div class="summary-icon">🟡</div>
 
-<button class="btn">
+            <div class="summary-title">
 
-🧾 Nota
+                Diproses
 
-</button>
+            </div>
 
-<button class="btn">
+            <div class="summary-value">
 
-👁 Detail
+                ${diproses}
 
-</button>
+            </div>
 
-</div>
+        </div>
 
-</div>
+        <div class="summary-card">
 
-<div class="summary-icon">📦</div>
+            <div class="summary-icon">🔴</div>
 
-<div class="summary-title">
+            <div class="summary-title">
 
-Order Hari Ini
+                Belum Bayar
 
-</div>
+            </div>
 
-<div class="summary-value">
+            <div class="summary-value">
 
-${totalOrder}
+                ${belumBayar}
 
-</div>
+            </div>
 
-</div>
+        </div>
 
-<div class="summary-card">
+    </div>
 
-<div class="summary-icon">💰</div>
+    <input
+        type="text"
+        id="searchBox"
+        class="search-box"
+        placeholder="🔍 Cari pelanggan..."
+        onkeyup="renderDashboard()"
+    >
 
-<div class="summary-title">
+    `;
 
-Omzet
+    const keyword =
+    document.getElementById("searchBox") ?
+    document.getElementById("searchBox").value.toLowerCase()
+    :
+    "";
 
-</div>
+    orders
+    .slice()
+    .reverse()
+    .forEach((order,index)=>{
 
-<div class="summary-value">
+        if(
+            keyword &&
+            !order.customer.toLowerCase().includes(keyword)
+        ){
+            return;
+        }
 
-Rp${omzet.toLocaleString("id-ID")}
+        let badgeClass = "waiting";
 
-</div>
+        if(order.status==="Diproses"){
 
-</div>
+            badgeClass = "process";
 
-</div>
+        }
 
-<input
-type="text"
-class="search-box"
-placeholder="🔍 Cari pelanggan...">
+        if(order.status==="Selesai"){
 
-`;
+            badgeClass = "done";
 
-<div class="summary-grid">
+        }
 
-<div class="summary-card">
+        html += `
 
-<div class="summary-title">
+        <div class="order-card">
 
-Order Hari Ini
+            <div class="order-header">
 
-</div>
+                <div class="order-name">
 
-<div class="summary-value">
+                    ${order.customer}
 
-${totalOrder}
+                </div>
 
-</div>
+                <div>
 
-</div>
+                    Meja ${order.table}
 
-<div class="summary-card">
+                </div>
 
-<div class="summary-title">
+            </div>
 
-Omzet
+            <br>
 
-</div>
+            <span class="badge ${badgeClass}">
 
-<div class="summary-value">
+                ${order.status}
 
-Rp${omzet.toLocaleString("id-ID")}
+            </span>
 
-</div>
+            <div class="order-total">
 
-</div>
+                Rp${order.total.toLocaleString("id-ID")}
 
-</div>
+            </div>
 
-`;
+            <div class="button-group">
 
-orders.reverse().forEach(order=>{
+                <button
+                    class="btn"
+                    onclick="bayar(${orders.length-1-index})">
 
-html += `
+                    ✔ Bayar
 
-<div class="order-card">
+                </button>
 
-<div class="order-title">
+                <button
+                    class="btn"
+                    onclick="nota(${orders.length-1-index})">
 
-${order.customer}
+                    🧾 Nota
 
-</div>
+                </button>
 
-<br>
+                <button
+                    class="btn"
+                    onclick="detail(${orders.length-1-index})">
 
-Meja ${order.table}
+                    👁 Detail
 
-<br><br>
+                </button>
 
-Status
+            </div>
 
-<b>${order.status}</b>
+        </div>
 
-<div class="order-total">
+        `;
 
-Rp${order.total.toLocaleString("id-ID")}
+    });
 
-</div>
+    dashboard.innerHTML = html;
 
-<div class="order-buttons">
+}
 
-<button class="btn">
+function bayar(index){
 
-✔ Bayar
+    let orders = getOrders();
 
-</button>
+    orders[index].status = "Diproses";
 
-<button class="btn">
+    saveOrders(orders);
 
-🧾 Nota
+    renderDashboard();
 
-</button>
+}
 
-<button class="btn">
+function nota(index){
 
-👁 Detail
+    alert(
+        "Cetak nota akan dibuat pada sprint berikutnya."
+    );
 
-</button>
+}
 
-</div>
+function detail(index){
 
-</div>
+    const order =
+    getOrders()[index];
 
-`;
+    alert(
 
-});
+        "Pelanggan : " +
 
-dashboard.innerHTML = html;
+        order.customer +
+
+        "\n\nMeja : " +
+
+        order.table +
+
+        "\n\nStatus : " +
+
+        order.status +
+
+        "\n\nTotal : Rp" +
+
+        order.total.toLocaleString("id-ID")
+
+    );
 
 }
