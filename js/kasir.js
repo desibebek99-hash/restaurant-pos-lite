@@ -21,7 +21,61 @@ function renderDashboard(){
 
 <div class="summary-grid">
 
-<div class="summary-card">
+<div class="order-card">
+
+<div class="order-header">
+
+<div class="order-name">
+
+${order.customer}
+
+</div>
+
+<div>
+
+${order.table}
+
+</div>
+
+</div>
+
+<br>
+
+<span class="badge waiting">
+
+${order.status}
+
+</span>
+
+<div class="order-total">
+
+Rp${order.total.toLocaleString("id-ID")}
+
+</div>
+
+<div class="button-group">
+
+<button class="btn">
+
+✔ Bayar
+
+</button>
+
+<button class="btn">
+
+🧾 Nota
+
+</button>
+
+<button class="btn">
+
+👁 Detail
+
+</button>
+
+</div>
+
+</div>
 
 <div class="summary-icon">📦</div>
 
