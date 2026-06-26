@@ -243,24 +243,88 @@ function detail(index){
     const order =
     getOrders()[index];
 
-    alert(
+    let html = `
 
-        "Pelanggan : " +
+    <h2>
 
-        order.customer +
+    Detail Order
 
-        "\n\nMeja : " +
+    </h2>
 
-        order.table +
+    <br>
 
-        "\n\nStatus : " +
+    <b>Pelanggan</b>
 
-        order.status +
+    <br>
 
-        "\n\nTotal : Rp" +
+    ${order.customer}
 
-        order.total.toLocaleString("id-ID")
+    <br><br>
 
-    );
+    <b>Meja</b>
+
+    <br>
+
+    ${order.table}
+
+    <br><br>
+
+    <b>Status</b>
+
+    <br>
+
+    ${order.status}
+
+    <hr>
+
+    `;
+
+    order.items.forEach(item=>{
+
+        html += `
+
+        <div class="item-row">
+
+            <div>
+
+            ${item.qty} x ${item.name}
+
+            </div>
+
+            <div>
+
+            Rp${(item.qty*item.price).toLocaleString("id-ID")}
+
+            </div>
+
+        </div>
+
+        `;
+
+    });
+
+    html += `
+
+    <hr>
+
+    <div class="modal-total">
+
+    Total
+
+    <br>
+
+    Rp${order.total.toLocaleString("id-ID")}
+
+    </div>
+
+    `;
+
+    document
+    .getElementById("modalBody")
+    .innerHTML = html;
+
+    document
+    .getElementById("modal")
+    .style.display="flex";
 
 }
